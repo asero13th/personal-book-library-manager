@@ -1,5 +1,5 @@
 import express from "express";
-import App from "./services/express_app.js";
+import App from "./services/expressApp.js";
 import { connectDB } from "./config/database.js";
 
 const startServer = async () => {

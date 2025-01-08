@@ -1,6 +1,8 @@
 import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
+// import authMiddleware from "../middleware/authMiddleware.js";
+import authRoutes from "../routes/authRoutes.js";
 
 export default async (app) => {
   app.use(bodyParser.json());
@@ -14,6 +16,9 @@ export default async (app) => {
       allowedHeaders: ["Content-Type", "Authorization"],
     })
   );
+
+  //   app.use("/images", express.static(path.join(__dirname, "images")));
+  app.use("/api/auth", authRoutes);
 
   return app;
 };
