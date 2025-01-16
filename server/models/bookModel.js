@@ -1,9 +1,15 @@
 import { Sequelize, DataTypes } from "sequelize";
 import sequelize from "../config/database.js";
+import User from "./userModel.js";
 
 const Book = sequelize.define(
   "Book",
   {
+    id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+    },
     title: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -12,7 +18,7 @@ const Book = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    ISBN: {
+    isbn: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
@@ -31,10 +37,20 @@ const Book = sequelize.define(
     notes: {
       type: DataTypes.TEXT,
     },
+    userId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: User,
+        key: "id",
+      },
+    },
   },
   {
     timestamps: true,
   }
 );
+
+User.hasMany(Book, { foreignKey: "userId" });
+Book.belongsTo(User, { foreignKey: "userId" });
 
 export default Book;
