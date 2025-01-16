@@ -3,7 +3,8 @@ import bodyParser from "body-parser";
 import cors from "cors";
 // import authMiddleware from "../middleware/authMiddleware.js";
 import authRoutes from "../routes/authRoutes.js";
-
+import bookRoutes from "../routes/bookRoutes.js";
+import authMiddleware from "../middleware/authMiddleware.js";
 export default async (app) => {
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
@@ -19,6 +20,7 @@ export default async (app) => {
 
   //   app.use("/images", express.static(path.join(__dirname, "images")));
   app.use("/api/auth", authRoutes);
+  app.use("/api/books", authMiddleware, bookRoutes);
 
   return app;
 };
